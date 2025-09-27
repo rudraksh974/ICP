@@ -1,7 +1,6 @@
 ## Minimum Number of Arrows to Burst Balloons
     class Solution {
         public int findMinArrowShots(int[][] arr) {
-            if(arr.length==1) return 1;
             Arrays.sort(arr,(a,b) -> Integer.compare(a[1],b[1]));
 
             int count = 1;
@@ -21,7 +20,20 @@
     }
 
 ## Sliding Window Maximum
-    
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int[] arr = new int[nums.length-k+1];
+        int in = 0 ;
+        for(int i=0;i<nums.length;i++){
+            if(i+k>nums.length) break;
+            int max = Integer.MIN_VALUE;
+            for(int j=i;j<k+i;j++){
+                max=Math.max(max,nums[j]);
+            }
+            arr[in++]=max;
+        }
+        return arr;
+    }
+
 ## Find First and Last Position of Element in Sorted Array
     class Solution {
         public int[] searchRange(int[] arr, int x) {
