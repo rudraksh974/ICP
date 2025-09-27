@@ -34,6 +34,28 @@
         return arr;
     }
 
+    //OPTIMIZE SOLUTION 
+
+    class Solution {
+        public int[] maxSlidingWindow(int[] nums, int k) {
+            int[] arr = new int[nums.length-k+1];
+            int in = 0;
+            Deque<Integer> q = new ArrayDeque<>();
+            for(int i=0;i<nums.length;i++){
+                while(!q.isEmpty() && q.peekFirst()<=i-k){
+                    q.pollFirst();
+                }
+                while(!q.isEmpty() && nums[q.peekLast()] <nums[i]){
+                    q.pollLast();
+                }
+                q.add(i);
+                if(i>=k-1) arr[in++]=nums[q.peekFirst()];
+            }
+            
+            return arr;
+        }
+    }
+
 ## Find First and Last Position of Element in Sorted Array
     class Solution {
         public int[] searchRange(int[] arr, int x) {
