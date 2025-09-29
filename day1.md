@@ -20,41 +20,42 @@
     }
 
 ## Sliding Window Maximum
-    public int[] maxSlidingWindow(int[] nums, int k) {
-        int[] arr = new int[nums.length-k+1];
-        int in = 0 ;
-        for(int i=0;i<nums.length;i++){
-            if(i+k>nums.length) break;
-            int max = Integer.MIN_VALUE;
-            for(int j=i;j<k+i;j++){
-                max=Math.max(max,nums[j]);
-            }
-            arr[in++]=max;
-        }
-        return arr;
-    }
-
-    //OPTIMIZE SOLUTION 
-
-    class Solution {
+    //Brute Force
         public int[] maxSlidingWindow(int[] nums, int k) {
             int[] arr = new int[nums.length-k+1];
-            int in = 0;
-            Deque<Integer> q = new ArrayDeque<>();
+            int in = 0 ;
             for(int i=0;i<nums.length;i++){
-                while(!q.isEmpty() && q.peekFirst()<=i-k){
-                    q.pollFirst();
+                if(i+k>nums.length) break;
+                int max = Integer.MIN_VALUE;
+                for(int j=i;j<k+i;j++){
+                    max=Math.max(max,nums[j]);
                 }
-                while(!q.isEmpty() && nums[q.peekLast()] <nums[i]){
-                    q.pollLast();
-                }
-                q.add(i);
-                if(i>=k-1) arr[in++]=nums[q.peekFirst()];
+                arr[in++]=max;
             }
-            
             return arr;
         }
-    }
+
+    //OPTIMIZE SOLUTION 
+ 
+        class Solution {
+            public int[] maxSlidingWindow(int[] nums, int k) {
+                int[] arr = new int[nums.length-k+1];
+                int in = 0;
+                Deque<Integer> q = new ArrayDeque<>();
+                for(int i=0;i<nums.length;i++){
+                    while(!q.isEmpty() && q.peekFirst()<=i-k){
+                        q.pollFirst();
+                    }
+                    while(!q.isEmpty() && nums[q.peekLast()] <nums[i]){
+                        q.pollLast();
+                    }
+                    q.add(i);
+                    if(i>=k-1) arr[in++]=nums[q.peekFirst()];
+                }
+                
+                return arr;
+            }
+        }
 
 ## Find First and Last Position of Element in Sorted Array
     class Solution {
